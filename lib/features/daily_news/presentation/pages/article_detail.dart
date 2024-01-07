@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:news_app/config/themes/app_theme.dart';
@@ -33,22 +34,29 @@ class ArticleDetails extends StatelessWidget {
             articleEntity.title.toString(),
             style: Theme.of(context).textTheme.bodyLarge,
           ),
-          CachedNetworkImage(
-              imageUrl: articleEntity.urlToImage!,
-              errorWidget: (context, url, error) => Padding(
-                    padding: const EdgeInsetsDirectional.only(end: 14),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(20.0),
-                      child: Container(
-                        width: MediaQuery.of(context).size.width / 3,
-                        height: double.maxFinite,
-                        decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.08),
-                        ),
-                        child: const Icon(Icons.error),
-                      ),
-                    ),
+          Image.network(articleEntity.urlToImage!,
+              errorBuilder: (context, error, stackTrace) => Container(
+                    height: MediaQuery.of(context).size.height * 20 / 100,
+                    width: MediaQuery.of(context).size.width,
+                    color: Colors.white24,
+                    child: const Center(child: Text("Error Loading Image")),
                   )),
+          // CachedNetworkImage(
+          //     imageUrl: articleEntity.urlToImage!,
+          //     errorWidget: (context, url, error) => Padding(
+          //           padding: const EdgeInsetsDirectional.only(end: 14),
+          //           child: ClipRRect(
+          //             borderRadius: BorderRadius.circular(20.0),
+          //             child: Container(
+          //               width: MediaQuery.of(context).size.width / 3,
+          //               height: double.maxFinite,
+          //               decoration: BoxDecoration(
+          //                 color: Colors.black.withOpacity(0.08),
+          //               ),
+          //               child: const Icon(Icons.error),
+          //             ),
+          //           ),
+          //         )),
           Text(
             articleEntity.description!.isNotEmpty
                 ? articleEntity.description!
