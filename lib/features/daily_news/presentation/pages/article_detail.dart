@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -41,22 +40,6 @@ class ArticleDetails extends StatelessWidget {
                     color: Colors.white24,
                     child: const Center(child: Text("Error Loading Image")),
                   )),
-          // CachedNetworkImage(
-          //     imageUrl: articleEntity.urlToImage!,
-          //     errorWidget: (context, url, error) => Padding(
-          //           padding: const EdgeInsetsDirectional.only(end: 14),
-          //           child: ClipRRect(
-          //             borderRadius: BorderRadius.circular(20.0),
-          //             child: Container(
-          //               width: MediaQuery.of(context).size.width / 3,
-          //               height: double.maxFinite,
-          //               decoration: BoxDecoration(
-          //                 color: Colors.black.withOpacity(0.08),
-          //               ),
-          //               child: const Icon(Icons.error),
-          //             ),
-          //           ),
-          //         )),
           Text(
             articleEntity.description!.isNotEmpty
                 ? articleEntity.description!
