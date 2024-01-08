@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:news_app/features/daily_news/domain/entities/article.dart';
 import 'package:floor/floor.dart';
 
@@ -21,6 +23,17 @@ class ArticleModel extends ArticleEntity {
       urlToImage: map['urlToImage'] ?? "",
       publishedAt: map['publishedAt'] ?? "",
       content: map['content'] ?? "",
+    );
+  }
+  factory ArticleModel.fromEntity(ArticleEntity entity) {
+    return ArticleModel(
+      id: entity.id,
+      title: entity.title,
+      description: entity.description,
+      url: entity.url,
+      urlToImage: entity.urlToImage,
+      publishedAt: entity.publishedAt,
+      content: entity.content,
     );
   }
 }
