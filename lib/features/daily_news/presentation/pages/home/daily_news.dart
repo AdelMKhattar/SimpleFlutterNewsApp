@@ -6,6 +6,7 @@ import 'package:news_app/features/daily_news/domain/entities/article.dart';
 import 'package:news_app/features/daily_news/presentation/bloc/article/remote/remote_article_bloc.dart';
 import 'package:news_app/features/daily_news/presentation/bloc/article/remote/remote_article_state.dart';
 import 'package:news_app/features/daily_news/presentation/pages/article_detail.dart';
+import 'package:news_app/features/daily_news/presentation/pages/saved_articles/saved_articles.dart';
 import 'package:news_app/features/daily_news/presentation/widgets/articles_widget.dart';
 
 class DailyNews extends StatelessWidget {
@@ -14,15 +15,25 @@ class DailyNews extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _buildAppBar(),
+      appBar: _buildAppBar(context),
       body: _buildBody(),
     );
   }
 
-  _buildAppBar() {
+  _buildAppBar(BuildContext context) {
     return AppBar(
       title: const Text("Daily News"),
+      leading: IconButton(
+        onPressed: () => _onIconButtonPressed(context),
+        icon: Icon(Icons.bookmark),
+        color: Colors.black,
+      ),
     );
+  }
+
+  _onIconButtonPressed(BuildContext context) {
+    return Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const SavedArticles()));
   }
 
   _buildBody() {
@@ -61,9 +72,5 @@ class DailyNews extends StatelessWidget {
         context,
         MaterialPageRoute(
             builder: (context) => ArticleDetails(articleEntity: article)));
-  }
-
-  void _onShowSavedArticlesViewTapped(BuildContext context) {
-    Navigator.pushNamed(context, '/SavedArticles');
   }
 }

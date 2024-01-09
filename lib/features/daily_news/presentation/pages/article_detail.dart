@@ -1,8 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/config/themes/app_theme.dart';
 import 'package:news_app/features/daily_news/domain/entities/article.dart';
+import 'package:news_app/features/daily_news/presentation/bloc/article/local/local_article_bloc.dart';
+import 'package:news_app/features/daily_news/presentation/bloc/article/local/local_article_event.dart';
+import 'package:news_app/injection_container.dart';
 
 class ArticleDetails extends StatelessWidget {
   final ArticleEntity articleEntity;
@@ -10,9 +14,13 @@ class ArticleDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: _buildAppBar(),
-      body: _buildBody(context),
+    return BlocProvider(
+      create: (_) => sl<LocalArticleBloc>(),
+      child: Scaffold(
+        appBar: _buildAppBar(),
+        body: _buildBody(context),
+        floatingActionButton: _buildFloatingActionButton(context),
+      ),
     );
   }
 
@@ -32,6 +40,15 @@ class ArticleDetails extends StatelessWidget {
           Text(
             articleEntity.title.toString(),
             style: Theme.of(context).textTheme.bodyLarge,
+          ),
+          Text(
+            articleEntity.publishedAt!.isNotEmpty
+                ? articleEntity.publishedAt!
+                : " ",
+            style: theme().textTheme.bodySmall,
+          ),
+          const SizedBox(
+            height: 3,
           ),
           Image.network(articleEntity.urlToImage!,
               errorBuilder: (context, error, stackTrace) => Container(
@@ -53,14 +70,17 @@ class ArticleDetails extends StatelessWidget {
             articleEntity.author!.isNotEmpty ? articleEntity.author! : "Author",
             style: theme().textTheme.bodySmall,
           ),
-          Text(
-            articleEntity.publishedAt!.isNotEmpty
-                ? articleEntity.publishedAt!
-                : " ",
-            style: theme().textTheme.bodySmall,
-          ),
         ],
       ),
     );
+  }
+
+  _buildFloatingActionButton(BuildContext context) {
+    return Builder(
+        builder: (context) => FloatingActionButton(
+              child: Icon(Icons.bookmark),
+              onPressed: () => BlocProvider.of<LocalArticleBloc>(context)
+                  .add(SaveArticle(articleEntity)),
+            ));
   }
 }

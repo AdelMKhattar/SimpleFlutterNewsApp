@@ -2,12 +2,12 @@ import 'package:news_app/core/use_cases/useCase.dart';
 import 'package:news_app/features/daily_news/domain/entities/article.dart';
 import 'package:news_app/features/daily_news/domain/repository/article_repository.dart';
 
-class GetSavedArticleUseCase implements UseCase<List<ArticleEntity>, void> {
+class SaveArticleUseCase implements UseCase<void, ArticleEntity> {
   final ArticleRepository _articleRepository;
-  GetSavedArticleUseCase(this._articleRepository);
+  SaveArticleUseCase(this._articleRepository);
 
   @override
-  Future<List<ArticleEntity>> call({void param}) {
-    return _articleRepository.getSavedArticles();
+  Future<void> call({ArticleEntity? param}) {
+    return _articleRepository.saveArticle(param!);
   }
 }
