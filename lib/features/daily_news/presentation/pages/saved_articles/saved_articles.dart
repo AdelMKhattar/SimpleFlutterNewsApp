@@ -46,6 +46,11 @@ class SavedArticles extends StatelessWidget {
             itemCount: state.articleEntities!.length,
             itemBuilder: (context, index) {
               return ArticleWidget(
+                isRemovable: true,
+                onRemove: (article) => {
+                  BlocProvider.of<LocalArticleBloc>(context)
+                      .add(RemoveArticle(article))
+                },
                 article: state.articleEntities![index],
                 onArticlePressed: (article) =>
                     _onArticlePressed(context, article),

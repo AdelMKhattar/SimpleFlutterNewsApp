@@ -6,7 +6,7 @@ import '../../domain/entities/article.dart';
 class ArticleWidget extends StatelessWidget {
   final ArticleEntity? article;
   final bool? isRemovable;
-  // final void Function(ArticleEntity article)? onRemove;
+  final void Function(ArticleEntity article)? onRemove;
   final void Function(ArticleEntity article)? onArticlePressed;
 
   const ArticleWidget({
@@ -14,7 +14,7 @@ class ArticleWidget extends StatelessWidget {
     this.article,
     this.isRemovable = false,
     this.onArticlePressed,
-    // this.onRemove,
+    this.onRemove,
   }) : super(key: key);
 
   @override
@@ -155,8 +155,8 @@ class ArticleWidget extends StatelessWidget {
   }
 
   void _onRemove() {
-    // if (onRemove != null) {
-    //   onRemove!(article!);
-    // }
+    if (onRemove != null) {
+      onRemove!(article!);
+    }
   }
 }

@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:news_app/features/daily_news/domain/entities/article.dart';
 import 'package:floor/floor.dart';
 
